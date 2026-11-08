@@ -1,70 +1,89 @@
+# 刷屏禁言
 
-<div align=center>
+检测群聊中的重复消息并自动禁言，支持按群设置检测窗口、次数和基础禁言时长，并根据本周违规次数逐步增加处罚。
 
-<img width="250" height="312" src="https://github.com/zhenxun-org/zhenxun_bot_plugins/blob/main/docs_image/tt.jpg"/>
+## 运行环境
 
-## 小真寻的百宝箱
+- Python 3.10 或更高版本。
+- 已正常运行的[绪山真寻](https://github.com/zhenxun-org/zhenxun_bot)项目。
+- OneBot V11 适配器及 Alconna、Session、Localstore 等依赖，详见 `requirements.txt`。
+- 机器人在群内有执行禁言的权限。
 
-</div>
+插件使用真寻的配置、权限、消息和平台禁言接口，保留 Session 会话接口以适配当前宿主。
 
-> [!NOTE]
->
-> <div align="center"><b>小真寻也很可爱呀，也会很喜欢你！</b></div>
->
-> <div align="center"><img width="235" height="235" src="https://github.com/zhenxun-org/zhenxun_bot_plugins/blob/main/docs_image/tt3.png"/><img width="235" height="235" src="https://github.com/zhenxun-org/zhenxun_bot_plugins/blob/main/docs_image/tt1.png"/><img width="235" height="235" src="https://github.com/zhenxun-org/zhenxun_bot_plugins/blob/main/docs_image/tt2.png"/></div>
+## 安装
 
-### 插件索引
+### 方式一：放入真寻插件目录
 
-| 插件名称 | 简介 |
-| :---: | :---|
-|[AI](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/ai) | 青云客AI，还有重复说相同的话检测，与小真寻普普通通的对话吧 |
-|[B站订阅](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/bilibili_sub)|非常便利的B站订阅通知，包括直播间，个人用户动态，番剧更新等|
-|[敏感词警察](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/black_word)|对小真寻进行辱骂会遭到严厉的惩罚，惩罚等级随次数而增加|
-|[磁力搜索](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/bt)|懂的都懂|
-|[联系管理员](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/dialogue)|跨越空间与时间跟超级用户对话|
-|[钉宫语录](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/dinggong)|被钉宫辱骂吧笨蛋|
-|[游戏抽卡](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/draw_card)|模拟赛马娘，原神，明日方舟，坎公骑冠剑，公主连结(国/台)，碧蓝航线，FGO，阴阳师，碧蓝档案进行抽卡，且通过爬虫实现自动更新|
-|[Epic提醒](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/epic)|epic免费游戏提醒，可以不玩，不能没有|
-|[金币红包](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/gold_redbag)|运气项目又来了，看看你的手气|
-|[本地图库](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/image_management)|本地图库项目，可以通过命令来上传，移动，删除，发送图片，私人的小收藏|
-|[真寻日报](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/mahiro_report)|可爱的小真寻为您带来今天的新鲜新闻哦|
-|[刷屏检测](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/mute)|刷屏是想吃禁言了|
-|[我有一个朋友](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/one_friend)|我有个朋友想说...|
-|[CSGO开箱](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/open_cases)|CSGO开箱以及统计，概率与完美公示的相同，模拟开箱戒赌|
-|[爬爬爬](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/pa)|随机爬表情包|
-|[b站转发解析](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/parse_bilibili)|解析b站转发消息，包括专栏，视频url，分享消息等等|
-|[PIX-API](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/pix_api)|PIX的api版本，共享图库，看看你的xp|
-|[PIX图库](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/pix_gallery)|PIX的本地版本，收集你和群友的xp|
-|[P站排行](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/pixiv_rank_search)|基于hibiapi的pixiv各种排行|
-|[BUFF皮肤查询](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/search_buff_skin_price)|CSGO当前皮肤数据buff查询|
-|[识图](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/search_image)|简单的saucenao识图|
-|[涩图](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/send_setu_)|没什么好说的，必备插件lolicon.api涩图|
-|[翻译](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/translate)|出国旅游好助手|
-|[微博热搜](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/wbtop)|alapi的微博热搜|
-|[识番](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/what_anime)|api.trace.moe 以图识番|
-|[词库问答](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/word_bank)| 词条检测，包含个人/群组/全局三种范围以及精准/模糊/正则三种检测方式 |
-|[词云](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/word_clouds)|看看自己说了什么话，用户的发言总结|
-|[网易云热评](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/comments_163)|alapi的网易云热评，到点了，该抑郁了|
-|[coser](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/coser)|没什么，换换口味罢了|
-|[b封面](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/cover)|alapi的b站封面截取接口，通过url来获取b站视频封面|
-|[复读姬](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/fudu)|人类的本质是....支持文字与图片，概率打断复读|
-|[群欢迎消息](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/group_welcome_msg)|设置群组成员的入群欢迎信息，支持图片与文字|
-|[鸡汤](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/jidang)|大饼吃多了，那就来喝点鸡汤吧~|
-|[鲁迅说](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/luxun)|鲁迅曾经说过...|
-|[能不能好好说话](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/nbnhhsh)|文字拼音首字母猜测，jjj=桀桀桀|
-|[Pid搜索](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/pid_search)|基于hibiapi的pid搜索，通过p站图片pid搜索图片并发送|
-|[古诗](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/poetry)|为什么突然文艺起来了啊喂！平白无故念首诗|
-|[二次元语录](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/quotations)|二次元给你力量|
-|[roll](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/roll)|犹豫不决吗？那就让我帮你决定吧|
-|[点歌](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/music)|简易版网易云点歌|
-|[角色识别](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/what_role)|动漫以及gal游戏的角色识别|
-|[三千API](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/qian_api)|包含 抠图/上色/超分 功能|
-|[点赞](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/send_like)|给你点赞|
-|[伪人AI](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/bym_ai)|超级强力AI（引入养成系统）|
+下载本仓库，将其中的 `mute/` 目录复制到 `zhenxun/plugins/`。在运行真寻的虚拟环境中安装仓库根目录 `requirements.txt` 中的依赖，然后重启真寻。
 
+### 方式二：通过外部目录加载
 
+下载本仓库到自选位置，安装 `requirements.txt` 中的依赖。在真寻实际使用的环境配置文件中，将仓库根目录追加到 `EXT_PATH`，例如：
 
+```dotenv
+EXT_PATH=["/path/to/插件仓库"]
+```
 
-### 更多插件请前往索引库
+保留已有的其他路径，保存配置后重启真寻。
 
-[>>>点击此处跳转<<<](https://github.com/zhenxun-org/zhenxun_bot_plugins_index)
+## 命令
+
+管理人员可在群内使用以下命令，具体权限由真寻的管理规则及 `MUTE_LEVEL` 控制：
+
+| 命令 | 作用 |
+|---|---|
+| `刷屏设置` | 查看当前群的检测和处罚设置 |
+| `刷屏设置 -c 10` | 相同消息超过 10 次时触发 |
+| `刷屏设置 -t 7` | 检测窗口为 7 秒 |
+| `刷屏设置 -d 10` | 第一次处罚的基础时长为 10 分钟 |
+| `刷屏设置 -t 7 -c 10 -d 10` | 同时修改多个设置 |
+| `刷屏设置 -d 0` | 关闭当前群的刷屏禁言 |
+
+检测时间和次数必须大于 0，基础禁言时长必须大于等于 0。一次命令中存在无效参数时，保留原配置并提示错误。
+
+## 检测规则
+
+- 按用户和群分别统计，在指定时间内连续发送相同消息超过设置次数时触发；默认是 7 秒内超过 10 次。
+- 纯文本按实际内容比较；图片统一为图片标记，因此连续发送不同图片也可计入同一类重复消息。
+- 文件、转发、语音、视频、JSON/XML 等消息使用类型标记；混合消息同时保留文字部分。
+- 使用平台事件原始时间统计，超过检测窗口才补发到达的旧消息会跳过，避免重连后集中误罚。
+- 消息处理时清理超过 `max(检测窗口 × 3, 60秒)` 的旧计数。
+- 用户已被真寻封禁时跳过检测。禁言操作使用按用户和群分离的 30 秒冷却。
+
+## 递增处罚
+
+设基础禁言时长为 M 分钟：
+
+| 本周违规次数 | 禁言时长 |
+|---|---|
+| 第 1 次 | M |
+| 第 2 次 | 3M |
+| 第 3 次 | 6M |
+| 第 4 次 | 36M |
+| 第 5 次及以后 | 在上一档基础上翻倍，最高 30 天 |
+
+默认基础时长为 10 分钟，前几次依次为 10、30、60、360、720 分钟。处罚次数按用户和群分别保存，每周五北京时间 00:00 进入新周期；已经生效的禁言按原到期时间结束。
+
+平台禁言调用失败并抛出异常时，不增加处罚次数。
+
+## 配置与数据
+
+| 配置项 | 默认值 | 说明 |
+|---|---|---|
+| `MUTE_LEVEL` | 5 | 真寻中修改设置所需的管理等级 |
+| `MUTE_DEFAULT_COUNT` | 10 | 默认检测次数 |
+| `MUTE_DEFAULT_TIME` | 7 | 默认检测窗口，单位秒 |
+| `MUTE_DEFAULT_DURATION` | 10 | 默认基础禁言时长，单位分钟 |
+
+各群设置保存在宿主 `data/group_mute_data.json`，周累计处罚保存到 Localstore 的 `mute/mute_penalties.sqlite3`。具体数据根目录以宿主配置为准，迁移前备份这些运行文件。
+
+配置解析失败时记录警告，插件继续加载并为未能加载设置的群使用默认值。读取失败时保留原文件，管理员之后保存设置会写入新的配置。
+
+## 来源与许可
+
+原作者：HibiKier。原项目：[真寻官方插件合集中的 mute](https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/mute)。改动记录见 [CHANGELOG.md](CHANGELOG.md)。
+
+使用 [GNU Affero General Public License v3.0](LICENSE)。分发修改版本时保留版权与许可，并提供相应源码；修改后通过网络向用户提供功能时，应向这些用户提供获取对应运行版本源码的入口。
+
+本仓库源码地址：<https://github.com/lumenmai/zhenxun-plugin-mute>。部署时可将实际运行提交的源码链接放入机器人的帮助或关于信息，使用户能够获取对应源码。

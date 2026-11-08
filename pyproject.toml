@@ -1,0 +1,51 @@
+[project]
+name = "zhenxun-plugin-mute"
+version = "0.2.0"
+description = "真寻刷屏检测插件：重复消息识别、按群设置和每周递增禁言"
+authors = [{name = "HibiKier"}]
+license = {text = "AGPL-3.0-only"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nonebot2>=2.3.3,<3",
+    "nonebot-adapter-onebot>=2.3.1,<3",
+    "nonebot-plugin-alconna>=0.56,<1",
+    "nonebot-plugin-session>=0.3.2,<0.4",
+    "nonebot-plugin-localstore>=0.7.4,<0.8",
+    "pydantic>=1.10,<3",
+    "ujson>=5.9,<6",
+    "tzdata>=2024.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/lumenmai/zhenxun-plugin-mute"
+Repository = "https://github.com/lumenmai/zhenxun-plugin-mute"
+Issues = "https://github.com/lumenmai/zhenxun-plugin-mute/issues"
+Source = "https://github.com/zhenxun-org/zhenxun_bot_plugins/tree/main/plugins/mute"
+
+[project.optional-dependencies]
+dev = [
+    "nonebot2[fastapi]>=2.3.3,<3",
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.25,<0.26",
+    "pytest-mock>=3.14,<4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mute"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:nonebug"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["F"]
